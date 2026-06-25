@@ -11,22 +11,21 @@ let prefix = ""
 client.on(Events.ClientReady, (c) => {
   console.log(`Successfully logged in as ${c.user.username}`);
   prefix = `<@${c.user.id}>`;
-})
+});
 
 client.on(Events.MessageCreate, async (message: Message) => {
 
   if (message.author.bot || !message.content.startsWith(prefix))
     return;
 
-  const args = message.content.slice(prefix.length).split(" ");
+  console.log(message.content.slice(prefix.length).trim());
+
+  const args = message.content.slice(prefix.length).trim().split(" ");
   const cmd = args.shift()?.toLowerCase();
 
   switch (cmd) {
     case "gifify":
       {
-
-        const attachments = message.attachments;
-
         const images = message.attachments.filter(att =>
           att.contentType?.startsWith("image/")
         );
@@ -37,7 +36,8 @@ client.on(Events.MessageCreate, async (message: Message) => {
 
         message.reply({
           files
-        })
+        });
+        break;
       }
   }
 });
