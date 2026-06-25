@@ -6,10 +6,11 @@ import { AttachmentBuilder, Client, Events, GatewayIntentBits, Message } from "d
 const intents: GatewayIntentBits[] = [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent];
 const client = new Client({ intents });
 
-const prefix = ";"
+let prefix = ""
 
 client.on(Events.ClientReady, (c) => {
   console.log(`Successfully logged in as ${c.user.username}`);
+  prefix = `<@${c.user.id}>`;
 })
 
 client.on(Events.MessageCreate, async (message: Message) => {
